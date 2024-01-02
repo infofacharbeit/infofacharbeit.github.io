@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <style>
+          canvas {
+            border: 1px solid #ff0000;
+            cursor: crosshair;
+          }
+        </style>
+    </head>
+<body>
+
+    <canvas id="drawing_canvas" width="1900" height="700" style="border:3px solid rgb(233, 0, 0)"></canvas>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() 
+        {
+            var canvas = document.getElementById("drawing_canvas");
+            var ctx = canvas.getContext("2d");
+
+            let is_drawing = false;
+            
+            canvas.addEventListener("mousedown", start_drawing); 
+            canvas.addEventListener("mousemove", draw);
+            canvas.addEventListener("mouseup", stop_drawing);
+            canvas.addEventListener("mouseout", stop_drawing);
+
+            function start_drawing(e)
+            {
+                is_drawing = true;
+                get_position(e);
+                draw(e);
+            }
+
+            var mouse = { x: 0, y: 0 };
+
+            function get_position(e)
+            {
+                mouse.x = e.clientX - canvas.getBoundingClientRect().left;
+                mouse.y = e.clientY - canvas.getBoundingClientRect().top;
+            }
+
+            function draw(e)
+            {
+                if (!is_drawing) return;
+
+                
+
+                if (is_drawing)
+                {
+                    ctx.beginPath();
+                    ctx.lineWidth = 5;
+                    ctx.lineCap = "round";
+                    ctx.strokeStyle = "rgb(233, 0, 0)";
+                    ctx.moveTo(mouse.x, mouse.y);
+                    get_position(e);
+                    ctx.lineTo(mouse.x, mouse.y);
+
+                    ctx.stroke();                    
+                    
+                }
+            }
+
+            function stop_drawing()
+            {
+                is_drawing = false;
+                ctx.closePath();
+            }
+        });
+    </script>
+
+</body>
+</html> 
