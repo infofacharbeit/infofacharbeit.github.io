@@ -1,76 +1,182 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title></title>
-        <style>
-          canvas {
-            border: 1px solid #ff0000;
-            cursor: crosshair;
-          }
-        </style>
-    </head>
+<head>
+    <title>Facharbeit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .sidebar {
+            margin: 0;
+            padding: 0;
+            width: 200px;
+            background-color: #f1f1f1;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+        .sidebar a {
+            display: block;
+            color: black;
+            padding: 16px;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background-color: #555;
+            color: white;
+        }  
+        div.content {
+            margin-left: 200px;
+            padding: 1px 16px;
+            height: 1000px;
+        }
+        @media screen and (max-width: 700px) {
+        .sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+        .sidebar a {float: left;}
+        div.content {margin-left: 0;}
+        }
+        @media screen and (max-width: 400px) {
+            .sidebar a {
+                text-align: center;
+                float: none;
+            }
+        }
+        .content {
+            margin-left: 215px;
+            padding: 15px;
+            flex: 1;
+        }
+        #drawing_canvas {
+            border: solid 3px rgb(233, 0, 0);
+        }
+    </style>
+</head>
 <body>
-
-    <canvas id="drawing_canvas" width="1900" height="700" style="border:3px solid rgb(233, 0, 0)"></canvas>
-
+    <div class="sidebar">
+        <a href="#home">Start</a>
+        <a href="#example1">example1</a>
+        <a href="#example2">example2</a>
+        <a href="#example3">example3</a>
+    </div>
+    <div class="content">
+        <h1>Main</h1>
+        <canvas id="drawing_canvas"></canvas>
+        <button onclick="delete_canvas()">Delete</button>
+        <p>text text text text text text text text text text text text text text text text text text</p>
+    </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() 
-        {
-            var canvas = document.getElementById("drawing_canvas");
-            var ctx = canvas.getContext("2d");
-
+        var canvas = document.getElementById("drawing_canvas");
+        var context = canvas.getContext("2d");
+        document.addEventListener("DOMContentLoaded", function() {
+            var mouse_pos = { x: 0, y: 0 };
+            var touch_pos = { x: 0, y: 0};
             let is_drawing = false;
             
-            canvas.addEventListener("mousedown", start_drawing); 
+            function resize_canvas() {
+                canvas.height = window.innerHeight/2;
+                canvas.width = window.innerWidth/1.5;
+                draw(canvas);
+            }
+            resize_canvas();
+
+            canvas.addEventListener("mousedown", start_drawing);
             canvas.addEventListener("mousemove", draw);
             canvas.addEventListener("mouseup", stop_drawing);
             canvas.addEventListener("mouseout", stop_drawing);
+            
+            //https://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
 
-            function start_drawing(e)
-            {
+            canvas.addEventListener("touchstart", start_touch_drawing);
+            canvas.addEventListener("touchmove", touch_draw);
+            canvas.addEventListener("touchend", stop_touch_drawing);
+
+            function get_position(e) {
+                mouse_pos.x = e.clientX - canvas.getBoundingClientRect().left;
+                mouse_pos.y = e.clientY - canvas.getBoundingClientRect().top;
+            }
+
+            function start_drawing(e) {
                 is_drawing = true;
                 get_position(e);
                 draw(e);
             }
 
-            var mouse = { x: 0, y: 0 };
-
-            function get_position(e)
-            {
-                mouse.x = e.clientX - canvas.getBoundingClientRect().left;
-                mouse.y = e.clientY - canvas.getBoundingClientRect().top;
-            }
-
-            function draw(e)
-            {
+            function draw(e) {
                 if (!is_drawing) return;
 
-                
-
-                if (is_drawing)
-                {
-                    ctx.beginPath();
-                    ctx.lineWidth = 5;
-                    ctx.lineCap = "round";
-                    ctx.strokeStyle = "rgb(233, 0, 0)";
-                    ctx.moveTo(mouse.x, mouse.y);
+                if (is_drawing) {
+                    context.beginPath();
+                    context.lineWidth = 5;
+                    context.lineCap = "round";
+                    context.strokeStyle = "rgb(233, 0, 0)";
+                    context.moveTo(mouse_pos.x, mouse_pos.y);
                     get_position(e);
-                    ctx.lineTo(mouse.x, mouse.y);
-
-                    ctx.stroke();                    
-                    
+                    context.lineTo(mouse_pos.x, mouse_pos.y);
+                    context.stroke();                    
                 }
             }
 
-            function stop_drawing()
-            {
+            function stop_drawing() {
                 is_drawing = false;
-                ctx.closePath();
+                context.closePath();
+            }
+            
+            function get_touch_position(e) {
+                touch_pos.x = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                touch_pos.y = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+            }
+
+            function start_touch_drawing(e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+                is_drawing = true;
+                get_touch_position(e);
+                touch_draw(e);
+            }
+
+            function touch_draw(e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+                if (!is_drawing) return;
+
+                if (is_drawing) {
+                    context.beginPath();
+                    context.lineWidth = 5;
+                    context.lineCap = "round";
+                    context.strokeStyle = "rgb(233, 0, 0)";
+                    context.moveTo(touch_pos.x, touch_pos.y);
+                    get_touch_position(e);
+                    context.lineTo(touch_pos.x, touch_pos.y);
+                    context.stroke();                    
+                }
+            }
+
+            function stop_touch_drawing(e) {
+                if (e.target == canvas) {
+                    e.preventDefault();
+                }
+                is_drawing = false;
+                context.closePath();
             }
         });
+        function delete_canvas() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+            }
     </script>
-
 </body>
-</html> 
+</html>
