@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <title>Facharbeit</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <style>
         * {
             box-sizing: border-box;
@@ -30,10 +31,16 @@
             padding: 16px;
             text-decoration: none;
         }
-        .sidebar a:hover {
-            background-color: #555;
+        .sidebar a.active {
+            background-color: rgb(233, 0, 0);
             color: white;
-        }  
+        }
+        @media (hover: hover) {
+            .sidebar a:hover {
+                background-color: rgb(121, 121, 121);
+                color: white;
+            }  
+        }
         div.content {
             margin-left: 200px;
             padding: 1px 16px;
@@ -62,22 +69,75 @@
         #drawing_canvas {
             border: solid 3px rgb(233, 0, 0);
         }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: rgb(121, 121, 121);
+            font-size: 11px;
+            text-align: center;   
+        }
     </style>
 </head>
-<body>
+<body scroll="no" style="overflow: hidden">
     <div class="sidebar">
-        <a href="#home">Start</a>
-        <a href="#example1">example1</a>
-        <a href="#example2">example2</a>
-        <a href="#example3">example3</a>
+        <a id="link1" class="active" href="" onclick="return show('home', 'link1');">home</a>
+        <a id="link2" href="" onclick="return show('example1', 'link2');">example1</a>
+        <a id="link3" href="" onclick="return show('example2', 'link3');">example2</a>
+        <a id="link4" href="" onclick="return show('example3', 'link4');">example3</a>
     </div>
-    <div class="content">
-        <h1>Main</h1>
-        <canvas id="drawing_canvas"></canvas>
-        <button onclick="delete_canvas()">Delete</button>
-        <p>text text text text text text text text text text text text text text text text text text</p>
+    <div id="home">
+        <div class="content">
+                <h1>home</h1>
+                <p>text text text text text text text text text text text text text text text text text text</p>
+        </div>
+    </div>
+    <div id="example1" style="display: none;">
+        <div class="content">
+                <h1>example1</h1>
+                <canvas id="drawing_canvas"></canvas>
+                <button onclick="delete_canvas()">Löschen</button>
+                <p>text text text text text text text text text text text text text text text text text text</p>
+        </div>
+    </div>
+    <div id="example2" style="display: none;">
+        <div class="content">
+                <h1>example2</h1>
+                <p>text text text text text text text text text text text text text text text text text text</p>
+        </div>
+    </div>
+    <div id="example3" style="display: none;">
+        <div class="content">
+                <h1>example3</h1>
+                <p>text text text text text text text text text text text text text text text text text text</p>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&#169 Amon Haupt</p>
     </div>
     <script>
+        var previous = "home"
+        var previous_link = "link1"
+        function show(shown, link) {
+            if (shown == previous) {
+                return false;
+            } else {
+                document.getElementById(shown).style.display="block";
+                document.getElementById(link).classList.add("active");
+                document.getElementById(previous).style.display="none";
+                document.getElementById(previous_link).classList.remove("active");
+                previous = shown
+                previous_link = link
+                return false;
+            }
+        }
+
+        //https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+        //https://developer.mozilla.org/en-US/docs/Web/API/Path2D
+        //https://developer.mozilla.org/en-US/docs/Web/API/Element/mousedown_event
+        //https://developer.mozilla.org/en-US/docs/Web/API/Touch_events
+
         var canvas = document.getElementById("drawing_canvas");
         var context = canvas.getContext("2d");
         document.addEventListener("DOMContentLoaded", function() {
@@ -96,8 +156,6 @@
             canvas.addEventListener("mousemove", draw);
             canvas.addEventListener("mouseup", stop_drawing);
             canvas.addEventListener("mouseout", stop_drawing);
-            
-            //https://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html
 
             canvas.addEventListener("touchstart", start_touch_drawing);
             canvas.addEventListener("touchmove", touch_draw);
