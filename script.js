@@ -114,7 +114,7 @@ function enableCam(event) {
   // getUsermedia parameters.
   const constraints = {
     video: {
-        facingMode: 'environment'
+        facingMode: { exact: 'environment' }
       }
   };
 
