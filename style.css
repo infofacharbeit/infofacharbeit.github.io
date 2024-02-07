@@ -7,6 +7,11 @@ body {
     flex-direction: column;
 }
 
+section {
+    opacity: 1;
+    transition: opacity 500ms ease-in-out;
+}
+
 video {
     clear: both;
     display: block;
@@ -14,6 +19,10 @@ video {
   
 .removed {
     display: none;
+}
+
+.invisible {
+    opacity: 0.2;
 }
 
 .videoView {
