@@ -130,7 +130,7 @@ function enableCam(event) {
 }
 
 var english_words = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'];
-var german_words = ["Wort"];
+var german_words = ['Person', 'Fahrrad', 'Auto', 'Motorrad', 'Flugzeug', 'Bus', 'Zug', 'LKW', 'Boot', 'Ampel', 'Feuerhydrant', 'Stoppschild', 'Parkuhr', 'Bank', 'Vogel', 'Katze', 'Hund', 'Pferd', 'Schaf', 'Kuh', 'Elefant', 'tragen', 'Zebra', 'Giraffe', 'Rucksack', 'Regenschirm', 'Handtasche', 'binden', 'Koffer', 'Frisbeescheibe', 'Skier', 'Snowboard', 'Sportball', 'Drachen', 'Baseballschläger', 'Baseballhandschuh', 'Skateboard', 'Surfbrett', 'Tennisschläger', 'Flasche', 'Weinglas', 'Tasse', 'Gabel', 'Messer', 'Löffel', 'Schüssel', 'Banane', 'Apfel', 'Sandwich', 'orange', 'Brokkoli', 'Karotte', 'Hotdog', 'Pizza', 'Krapfen', 'Kuchen', 'Stuhl', 'Couch', 'Topfpflanze', 'Bett', 'Esstisch', 'Toilette', 'Fernseher', 'Laptop', 'Maus', 'Fernbedienung', 'Tastatur', 'Handy', 'Mikrowelle', 'Ofen', 'Toaster', 'Waschbecken', 'Kühlschrank', 'Buch', 'Uhr', 'Vase', 'Schere', 'Teddybär', 'Fön', 'Zahnbürste'];
 
 
 function translate(input) {
@@ -162,8 +162,8 @@ function predictWebcam() {
       if (predictions[n].score > 0.66) {
         const p = document.createElement('p');
         console.log(typeof(predictions[n].class));
-        translate(predictions[n].class);
-        p.innerText = predictions[n].class  + ' - mit ' 
+        var translation = translate(predictions[n].class);
+        p.innerText = translation  + ' - mit ' 
             + Math.round(parseFloat(predictions[n].score) * 100) 
             + '% Sicherheit';
         // Draw in top left of bounding box outline.
