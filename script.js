@@ -162,6 +162,7 @@ function predictWebcam() {
       if (predictions[n].score > 0.66) {
         const p = document.createElement('p');
         console.log(translate(predictions[n].class));
+        console.log(predictions[n].class);
         p.innerText = predictions[n].class  + ' - mit ' 
             + Math.round(parseFloat(predictions[n].score) * 100) 
             + '% Sicherheit';
