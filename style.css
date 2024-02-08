@@ -28,7 +28,7 @@ video {
 .videoView {
     position: absolute;
     padding: 5px;
-    background-color: rgba(255, 111, 0, 0.85);
+    background-color: rgb(233, 0, 0);
     color: #FFF;
     border: 1px dashed rgba(255, 255, 255, 0.7);
     z-index: 2;
@@ -39,7 +39,7 @@ video {
 .videoView p {
     position: absolute;
     padding: 5px;
-    background-color: rgba(255, 111, 0, 0.85);
+    background-color: rgb(233, 0, 0);
     color: #FFF;
     border: 1px dashed rgba(255, 255, 255, 0.7);
     z-index: 2;
