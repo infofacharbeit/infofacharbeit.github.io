@@ -136,7 +136,6 @@ var german_words = ["Wort"];
 function translate(input) {
     if (english_words.includes(input)) {
       var translated_word = german_words[english_words.indexOf(input)];
-      console.log(translated_word);
       return translated_word;
     } else {
         console.log(input);
@@ -161,8 +160,7 @@ function predictWebcam() {
       // If we are over 66% sure we are sure we classified it right, draw it!
       if (predictions[n].score > 0.66) {
         const p = document.createElement('p');
-        console.log(translate(predictions[n].class));
-        console.log(predictions[n].class);
+        console.log(typeof(predictions[n].class));
         p.innerText = predictions[n].class  + ' - mit ' 
             + Math.round(parseFloat(predictions[n].score) * 100) 
             + '% Sicherheit';
