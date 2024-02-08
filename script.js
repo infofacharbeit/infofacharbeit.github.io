@@ -11,6 +11,8 @@ cocoSsd.load().then(function (loadedModel) {
   demosSection.classList.remove('invisible');
 });
 
+// von hier bis Zeile 75 kann weg möglicher weise
+
 
 /********************************************************************
 // Demo 1: Grab a bunch of images from the page and classify them
@@ -70,6 +72,8 @@ function handleClick(event) {
 }
 
 
+// weg
+
 
 /********************************************************************
 // Demo 2: Continuously grab image from webcam stream and classify it.
@@ -125,6 +129,21 @@ function enableCam(event) {
   });
 }
 
+var english_words = ["Word"];
+var german_words = ["Wort"];
+
+
+function translate(input) {
+    if (english_words.includes(input)) {
+      var translated_word = german_words[english_words.indexOf(input)];
+      console.log(translated_word);
+      return translated_word;
+    } else {
+        console.log(input);
+        return input;
+    }
+}
+
 
 // Prediction loop!
 function predictWebcam() {
@@ -142,6 +161,7 @@ function predictWebcam() {
       // If we are over 66% sure we are sure we classified it right, draw it!
       if (predictions[n].score > 0.66) {
         const p = document.createElement('p');
+        console.log(predictions[n].class);
         p.innerText = predictions[n].class  + ' - mit ' 
             + Math.round(parseFloat(predictions[n].score) * 100) 
             + '% Sicherheit';
