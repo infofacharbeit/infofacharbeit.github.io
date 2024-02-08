@@ -136,6 +136,7 @@ var german_words = ["Wort"];
 function translate(input) {
     if (english_words.includes(input)) {
       var translated_word = german_words[english_words.indexOf(input)];
+      console.log(translated_word);
       return translated_word;
     } else {
         console.log(input);
@@ -161,6 +162,7 @@ function predictWebcam() {
       if (predictions[n].score > 0.66) {
         const p = document.createElement('p');
         console.log(typeof(predictions[n].class));
+        translate(predictions[n].class);
         p.innerText = predictions[n].class  + ' - mit ' 
             + Math.round(parseFloat(predictions[n].score) * 100) 
             + '% Sicherheit';
