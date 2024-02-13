@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="style.css">
   </head>  
   <body>
-    <section id="demos" class="invisible">
-        <h2>Demo: Webcam continuous classification</h2>
-        <div id="liveView" class="videoView">
-            <button id="webcamButton">Enable Webcam</button>
-            <video id="webcam" autoplay></video>
-        </div>
-    </section>
+    <button id="load_model_button" onclick="load_cocoSsd_model()">KI-Modell laden</button>
+            <section id="cam_section" class="invisible">
+                <h2 id="still_loading" class="removed">KI-Modell lädt...</h2>
+                <div id="liveView" class="videoView">
+                    <button id="webcam_button">Kamera aktivieren</button>
+                    <video id="webcam" autoplay></video>
+                </div>
+            </section>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
