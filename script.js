@@ -56,7 +56,6 @@ if (hasGetUserMedia()) {
 } else {
     console.warn("getUserMedia() is not supported by your browser");
 }
-
 function enable_cam(event) {
     if (!object_model) {
         //console.log("Model not loaded")
@@ -70,8 +69,16 @@ function enable_cam(event) {
             facingMode: {
                 exact: "environment"
             },
-            width: window.innerWidth - 10,
-            height: window.innerHeight -10,
+            width: {
+                min: 1280,
+                ideal: 1920,
+                max: 2560,
+            },
+            height: {
+                min: 720,
+                ideal: 1080,
+                max: 1440
+            }
         }
     };
 
