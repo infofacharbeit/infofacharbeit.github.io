@@ -70,14 +70,14 @@ function enable_cam(event) {
                 exact: "environment"
             },
             width: {
-                min: 1280,
-                ideal: 1920,
-                max: 2560,
+                min: 300,
+                ideal: 400,
+                max: 500,
             },
             height: {
-                min: 720,
-                ideal: 1080,
-                max: 1440
+                min: 300,
+                ideal: 400,
+                max: 500
             }
         }
     };
