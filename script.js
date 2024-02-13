@@ -64,13 +64,15 @@ function enable_cam(event) {
 
     event.target.classList.add("removed");
 
+    video_box = window.innerWidth - 200;
+    
     const constraints = {
         video: {
             facingMode: {
                 exact: "environment"
             },
-            width: 100,
-            height: 100
+            width: video_box,
+            height: video_box
         }
     };
 
