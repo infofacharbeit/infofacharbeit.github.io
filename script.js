@@ -64,7 +64,7 @@ function enable_cam(event) {
 
     event.target.classList.add("removed");
 
-    video_box = window.innerWidth;
+    video_box = window.innerWidth - 6;
     
     const constraints = {
         video: {
