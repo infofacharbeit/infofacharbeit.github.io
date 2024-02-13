@@ -1,20 +1,3 @@
-var previous = "home"
-var previous_link = "link1"
-
-function show(shown, link) {
-    if (shown == previous) {
-        return false;
-    } else {
-        document.getElementById(shown).style.display = "block";
-        document.getElementById(link).classList.add("active");
-        document.getElementById(previous).style.display = "none";
-        document.getElementById(previous_link).classList.remove("active");
-        previous = shown
-        previous_link = link
-        return false;
-    }
-}
-
 // OBJEKTERKENNUNG
 // Basiert auf folgenden Tutorial
 // https://codelabs.developers.google.com/codelabs/tensorflowjs-object-detection/#0
@@ -56,6 +39,7 @@ if (hasGetUserMedia()) {
 } else {
     console.warn("getUserMedia() is not supported by your browser");
 }
+
 function enable_cam(event) {
     if (!object_model) {
         //console.log("Model not loaded")
@@ -80,6 +64,19 @@ function enable_cam(event) {
         video.srcObject = stream;
         video.addEventListener("loadeddata", predict_webcam);
     });
+    document.getElementById("disable_cam_button").classList.remove("removed");
+}
+
+function disable_cam() {
+    const stream = video.srcObject;
+    const tracks = stream.getTracks();
+
+    tracks.forEach((track) => {
+        track.stop();
+    });
+
+    video.srcObject = null;
+    document.getElementById("disable_cam_button").classList.add("removed");
 }
 
 var english_words = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light', 'fire hydrant', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe', 'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush'];
