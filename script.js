@@ -73,8 +73,8 @@ function disable_cam() {
     video.srcObject = null;
     document.getElementById("disable_cam_button").classList.add("removed");
     let live_view_children = liveView.children;
-    live_view_children.remove(3);
-    live_view_children.remove(4);
+    liveView.remove(3);
+    liveView.remove(4);
     console.log(live_view_children);
 }
 
