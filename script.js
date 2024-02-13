@@ -69,16 +69,8 @@ function enable_cam(event) {
             facingMode: {
                 exact: "environment"
             },
-            width: {
-                min: 300,
-                ideal: 400,
-                max: 500,
-            },
-            height: {
-                min: 300,
-                ideal: 400,
-                max: 500
-            }
+            width: 100,
+            height: 100
         }
     };
 
